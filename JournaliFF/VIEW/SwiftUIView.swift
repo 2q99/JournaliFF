@@ -1,10 +1,15 @@
 import SwiftUI
 import Playgrounds
-
-struct WelcomeView: View {
+//JournalCardView: بطاقة تنشاف ← VIEW
+struct SwiftUIView: View {
+    @State private var isActive = false //@State معناها: إذا تغيّرت قيمته، SwiftUI يعيد رسم الشاشة تلقائياً. بدونه الشاشة ما تدري إنها لازم تتغير.
     var body: some View {
         
         ZStack{
+            if isActive {
+                JournalListView()
+            } else {
+                
             LinearGradient(
                             colors: [Color("black"), Color("Grad")],
                             startPoint: .top,
@@ -25,13 +30,27 @@ struct WelcomeView: View {
                 Text("Your thoughts, your story")
                     .font(AppFont.bodyM)
                     .foregroundStyle(.white)
-
+                // هنا كودك القديم كامل (ZStack وكل شي)
+            }
+            .task { //.task يشتغل تلقائياً أول ما تظهر الشاشة، بدون ما المستخدم يضغط شي.
+                try? await Task.sleep(for: .seconds(2))
+                withAnimation {
+                    isActive = true
+                }
+                
+            }
                 
             }
         }
+        .task {          // ← هنا، ملصوق بالـ ZStack
+                try? await Task.sleep(for: .seconds(2))
+                withAnimation {
+                    isActive = true
+                }
+            }
     }
 }
     #Preview {
-        WelcomeView()
+       SwiftUIView()
     }
 
