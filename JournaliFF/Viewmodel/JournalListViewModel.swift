@@ -43,4 +43,5 @@ class JournalListViewModel: ObservableObject {
     func delete(_ entry: JournalEntry) {
         entries.removeAll { $0.id == entry.id }
     }
+    
 }

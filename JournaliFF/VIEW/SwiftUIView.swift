@@ -1,6 +1,5 @@
 import SwiftUI
 import Playgrounds
-//JournalCardView: بطاقة تنشاف ← VIEW
 struct WelcomeView: View {
     @State private var isActive = false //@State معناها: إذا تغيّرت قيمته، SwiftUI يعيد رسم الشاشة تلقائياً. بدونه الشاشة ما تدري إنها لازم تتغير.
     var body: some View {
@@ -23,7 +22,7 @@ struct WelcomeView: View {
                 Text("Your thoughts, your story")
                     .font(AppFont.bodyM)
             }
-            .task { //.task يشتغل تلقائياً أول ما تظهر الشاشة، بدون ما المستخدم يضغط شي.
+            .task {
                 try? await Task.sleep(for: .seconds(2))
                 withAnimation {
                     isActive = true
@@ -33,7 +32,7 @@ struct WelcomeView: View {
                 
             }
         }
-        .task {          // ← هنا، ملصوق بالـ ZStack
+        .task {
                 try? await Task.sleep(for: .seconds(2))
                 withAnimation {
                     isActive = true
@@ -43,4 +42,6 @@ struct WelcomeView: View {
 }
 #Preview {
     WelcomeView()
+        .preferredColorScheme(.dark) //يورث من الparent
+
 }
